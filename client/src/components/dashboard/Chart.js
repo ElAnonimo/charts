@@ -37,25 +37,52 @@ const Charts = ({ isAuthenticated, messages, chartData }) => {
 	}, []); */
 	
 	useEffect(() => {
-		const chart = chartRef && new Chart(document.getElementById('myChart'), {
-			type: 'line',
-			data: [{
-					x: 10,
-					y: 20
-			}, {
-					x: 15,
-					y: 10
-			}],
-			options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-		});
+		let ctx = null;
+		
+		if (document.getElementById('myChart')) {	
+      ctx = document.getElementById('myChart').getContext('2d');
+      const chart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: ['y', 'x'],
+					datasets: [{
+						label: '# of Votes',
+						data: [{
+							x: 10,
+							y: 100
+						}, {
+							x: 15,
+							y: 10
+						}, {
+							x: 20,
+							y: 10
+						}, {
+							x: 30,
+							y: 5
+						}, {
+							x: 50,
+							y: 100
+						}, {
+							x: 60,
+							y: 80
+						}, {
+							x: 70,
+							y: 15
+						}],
+						borderWidth: 1
+					}]
+				},
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					}
+				}
+			});
+		}
 	}, [chartData]);
 	
 	// redirect to /login if not logged in
